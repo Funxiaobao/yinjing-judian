@@ -18,9 +18,10 @@ pip install jieba opencc-python-reimplemented
 
 ## 结构
 - `SKILL.md`：触发规则与检索流程
-- `scripts/quote.py`：BM25 检索（jieba 分词 + 单字/bigram + 繁简转换）
+- `scripts/quote.py`：BM25 检索（jieba 分词 + 单字/bigram + 繁简转换），索引支持 `.pkl` 和 `.pkl.gz`
 - `scripts/build_index.py`：重建索引
-- `data/index.pkl`：预建索引（22M）
+- `data/index.pkl.gz`：预建索引（压缩版 6.9M，脚本自动读取）
 - `data/corpus/`：语料（圣经 66 卷 31101 节 + 14 种古书）
+- `data/corpus/bible_CUNPS.json.gz`：圣经原始抓取数据（压缩版）
 
-索引已随仓库提供，克隆后可直接用；改了语料再跑 build_index.py 重建。
+索引已随仓库提供，克隆后可直接用；改了语料再跑 build_index.py 重建（会生成未压缩的 index.pkl）。
