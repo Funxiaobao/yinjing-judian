@@ -8,13 +8,14 @@
   python3 quote.py "..." --json           # 机器可读
 查不到就输出 NOT_FOUND，绝不编造。
 """
-import argparse, json, math, os, pickle, re, sys
+import argparse, gzip, json, math, os, pickle, re, sys
 from collections import defaultdict
 
 import jieba
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 IDX = os.path.join(HERE, "..", "data", "index.pkl")
+IDX_GZ = IDX + ".gz"
 
 STOP = set("的 了 着 是 在 和 与 也 吗 呢 吧 啊 这 那 就 都 很 我 你 他 她 它 们 一 个 有 不 之 而 其 以 为 於 于 也 矣 焉 哉 乎 兮 者 所 则 曰 云".split())
 K1, B = 1.5, 0.75
@@ -37,10 +38,15 @@ def main():
     ap.add_argument("--min", type=float, default=1.0, help="最低分阈值")
     a = ap.parse_args()
 
-    if not os.path.exists(IDX):
+    if os.path.exists(IDX):
+        fh = open(IDX, "rb")
+    elif os.path.exists(IDX_GZ):
+        fh = gzip.open(IDX_GZ, "rb")
+    else:
         print("索引不存在，请先运行 build_index.py", file=sys.stderr)
         sys.exit(2)
-    d = pickle.load(open(IDX, "rb"))
+    with fh:
+        d = pickle.load(fh)
     quotes, post, dl, avgdl, idf = d["quotes"], d["post"], d["dl"], d["avgdl"], d["idf"]
 
     q = tokens(a.query)
