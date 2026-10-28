@@ -13,7 +13,7 @@ description: 引经据典——用户说出一句话或一个意思，末尾加�
 ## 命令
 
 ```bash
-cd /AstrBot/data/skills/yinjing-judian/scripts
+cd <skill目录>/scripts   # 进到本 skill 自己的 scripts 目录
 python3 quote.py "你在这里做什么" -n 12
 python3 quote.py "信 诺 言 诚" -n 12          # 拆成关键词搜
 python3 quote.py "谁没有罪" --book 圣经 -n 5   # --book 圣经/论语/孟子/诗经/增广贤文…
