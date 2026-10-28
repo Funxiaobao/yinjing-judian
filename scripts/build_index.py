@@ -10,7 +10,7 @@ import opencc
 HERE = os.path.dirname(os.path.abspath(__file__))
 CORPUS = os.path.join(HERE, "..", "data", "corpus")
 CP = os.path.join(CORPUS, "chinese-poetry")
-OUTDIR = "/AstrBot/data/skills/yinjing-judian/data"
+OUTDIR = os.path.join(HERE, "..", "data")
 os.makedirs(OUTDIR, exist_ok=True)
 cc = opencc.OpenCC("t2s")
 
